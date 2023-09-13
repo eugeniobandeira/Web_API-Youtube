@@ -1,17 +1,13 @@
 ﻿using BookAPI.Model;
 
-namespace BookAPI.Repository
+namespace BookAPI.Repositories
 {
     public interface IBookRepository
     {
         Task<IEnumerable<Book>> Get();
-
-        Task<Book> Get(int id);
-
+        Task<Book> Get(int Id);
         Task<Book> Create(Book book);
-
-        Task<Book> Update(Book book);
-
-        Task<Book> Delete(int id);
+        Task Update(Book book);
+        Task Delete(int Id);
     }
 }

@@ -1,11 +1,12 @@
 ﻿using BookAPI.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookAPI.Repository
+namespace BookAPI.Repositories
 {
     public class BookRepository : IBookRepository
     {
         public readonly BookContext _context;
+
         public BookRepository(BookContext context)
         {
             _context = context;
@@ -18,18 +19,16 @@ namespace BookAPI.Repository
             return book;
         }
 
-        public async Task<Book> Delete(int id)
+        public async Task Delete(int id)
         {
-            var bookDelete = await _context.Books.FindAsync(id);
-            _context.Books.Remove(bookDelete);
+            var bookToDelete = await _context.Books.FindAsync(id);
+            _context.Books.Remove(bookToDelete);
             await _context.SaveChangesAsync();
-            return bookDelete;
         }
 
         public async Task<IEnumerable<Book>> Get()
         {
             return await _context.Books.ToListAsync();
-            
         }
 
         public async Task<Book> Get(int id)
@@ -37,12 +36,10 @@ namespace BookAPI.Repository
             return await _context.Books.FindAsync(id);
         }
 
-        public async Task<Book> Update(Book book)
+        public async Task Update(Book book)
         {
             _context.Entry(book).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return book;
         }
-
     }
 }

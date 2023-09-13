@@ -2,5 +2,6 @@
 {
     public class Book
     {
+        internal int id;
     }
 }
